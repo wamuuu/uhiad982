@@ -17,12 +17,12 @@ function createtext(parent)
 		TextLabel.TextScaled = true
 	end)
 end
-function dfesp()
-	for i,v in pairs(game:GetService('Workspace'):GetDescendants()) do
+function startesp()
+	game:GetService('Workspace').DescendantAdded:Connect(function(v)
 		if string.find(v.Name,'preHandle') then
 			createtext(v)
 		end
-	end
+	end)
 end
 -- whitelist
 local names={
@@ -32,9 +32,7 @@ local ids={
   999999
 }
 spawn(function()
-    while wait(25)do
-        if table.find(names,game:GetService('Players').LocalPlayer.Name)and table.find(ids,game:GetService('Players').LocalPlayer.UserId)then
-            dfesp()
-        end
-    end
+	if table.find(names,game:GetService('Players').LocalPlayer.Name)and table.find(ids,game:GetService('Players').LocalPlayer.UserId)then
+	    startesp()
+	end
 end)
